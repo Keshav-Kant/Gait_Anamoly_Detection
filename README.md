@@ -16,16 +16,6 @@ This project aims to investigate the possibility of abnormal gait in order to id
 To use the Biomechanics of gait, follow these step :</br></br>
 <a href = "https://www.python.org/downloads/">Install python</a> <a>from version 3.9 onwards.</a>
 </br></br>
-install libraries :
-```
-  python3 -m pip install opencv-python mediapipe numpy
-```
-
-install my project :</br>
-```
-  git clone https://github.com/watcharapol28/Biomechanics-of-gait.git
-```
-</br>
 
 ## Running
 To run the Biomechanics of gait, follow these step :</br></br>
