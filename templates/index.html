@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gait Anomaly Detection</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; text-align: center; background-color: #f4f4f4; }
+        .navbar { background: #333; color: white; padding: 15px; font-size: 22px; font-weight: bold; }
+        .container { width: 60%; margin: auto; padding: 20px; border-radius: 10px; height: fit-content; padding: 200px 0;}
+        .footer { background: #333; color: white; padding: 10px; padding: 20px 0; font-size: 16px; }
+        
+        /* Hero Section */
+        .hero-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 50px;
+            text-align: left;
+            color: white;
+            height: 80vh; 
+            width: 100%;
+            background: url("{{ url_for('static', filename='bg.jpg') }}") no-repeat center center/cover;
+        }
+        .hero-text {
+            flex: 1;
+            max-width: 50%;
+            padding: 20px;
+        }
+        .hero-text h1 {
+            font-size: 56px;
+        }
+        .hero-text p {
+            font-size: 22px;
+        }
+        .hero-text a {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 12px 24px;
+            background: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 20px;
+            transition: background 0.3s ease;
+        }
+        .hero-text a:hover {
+            background: #0056b3;
+        }
+
+        /* Quote Section */
+        .quote-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 50px;
+            color: white;
+            background: #222;
+            text-align: left;
+            height: 80vh;
+        }
+        .quote-text {
+            flex: 1;
+            font-size: 24px;
+            font-style: italic;
+            max-width: 50%;
+        }
+
+        /* Upload Section */
+        .upload-section { padding: 40px; border: 2px dashed #007BFF; margin: 40px auto; border-radius: 15px; text-align: center; transition: all 0.3s ease-in-out; max-width: 500px; }
+        .upload-section:hover { background: #eef6ff; border-color: #0056b3; }
+        .upload-section input[type="file"] { display: none; }
+        .upload-label { display: inline-block; padding: 12px 24px; font-size: 18px; font-weight: bold; color: white; background: #007BFF; border-radius: 30px; cursor: pointer; transition: background 0.3s ease-in-out; }
+        .upload-label:hover { background: #0056b3; transform: scale(1.05); }
+        .upload-section button { padding: 12px 30px; font-size: 18px; font-weight: bold; color: white; background: #007BFF; border: none; border-radius: 30px; cursor: pointer; transition: all 0.3s ease-in-out; display: inline-block; margin-top: 15px; }
+        .upload-section button:hover { background: #0056b3; transform: scale(1.05); }
+        .file-name { margin-top: 10px; font-size: 16px; color: #333; }
+        .loading-message { display: none; font-size: 18px; color: #007BFF; margin-top: 15px; }
+
+        /* Prediction Table */
+        .prediction-table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0px 0px 15px rgba(0,0,0,0.1);
+        }
+
+        .prediction-table th {
+            background: #007BFF;
+            color: white;
+            padding: 12px;
+            font-size: 18px;
+        }
+
+        .prediction-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+
+        .prediction-table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        /* Final Prediction */
+        .final-prediction {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007BFF;
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            background: #e6f2ff;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">Gait Anomaly Detection</div>
+    
+    <section class="hero-section" >
+        <div class="hero-text">
+            <h1>Enhance Your Walking Health</h1>
+            <p>Identify and improve your walking patterns with AI-powered gait analysis.</p>
+            <a href="#upload-section">Analyze Your Walking</a>
+        </div>
+    </section>
+
+    <section class="quote-section">
+        <div class="quote-text">
+            <blockquote>“Gait abnormalities are more common as you age. Around 15% of people experience a gait abnormality by age 60. Children are less likely to have a gait abnormality unless they have an underlying health condition or experience an injury. Early detection with AI can significantly improve mobility and quality of life.”</blockquote>
+        </div>
+        <img src="{{ url_for('static', filename='gait_marker.png') }}" alt="Gait Study"   style="width: 20%;"     >
+    </section>
+
+
+    <section  class="container">
+        <h1>Upload a Video for Gait Analysis</h1>
+        
+        <div class="upload-section" id="upload-section">
+            <form id="upload-form" action="/predict" method="POST" enctype="multipart/form-data" onsubmit="showLoading()">
+                <label for="file-upload" class="upload-label">Choose File</label>
+                <input type="file" id="file-upload" name="video" required onchange="displayFileName()">
+                <p class="file-name" id="file-name"></p>
+                <button type="submit" id="submit-btn">Upload & Predict</button>
+                <p class="loading-message" id="loading-message">Processing... Please wait.</p>
+            </form>
+        </div>
+
+        {% if video_url %}
+    <h3>🔍 Processed Video with Keypoints:</h3>
+        <!-- <video src="{{ url_for('static', filename='output.mp4') }}" controls loop autoplay muted playsinline style="width: 50%;"></video> -->
+        <video src="{{ video_url }}" controls loop autoplay muted playsinline style="width: 50%;"></video>
+
+{% endif %}
+
+        
+        {% if error %}
+            <p style="color: red;">{{ error }}</p>
+        {% endif %}
+        
+        {% if predictions %}
+            <h2>Model Predictions</h2>
+            <table class="prediction-table">
+                <tr>
+                    <th>Model</th>
+                    <th>Predicted Classes</th>
+                </tr>
+                {% for model, result in predictions.items() %}
+                    <tr>
+                        <td><strong>{{ model }}</strong></td>
+                        <td>
+                            {% for class, count in result.items() %}
+                                <strong>{{ class }}</strong>: {{ count }}<br>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+
+            {% if final_votes %}
+                <h2>Voting Summary</h2>
+                <table class="prediction-table">
+                    <tr>
+                        <th>Class</th>
+                        <th>Votes</th>
+                    </tr>
+                    {% for class, count in final_votes.items() %}
+                        <tr>
+                            <td>{{ class }}</td>
+                            <td>{{ count }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
+            
+            {% if final_prediction %}
+                <div class="final-prediction">
+                    Final Prediction (Majority Vote): {{ final_prediction }}
+                </div>
+            {% endif %}
+        {% endif %}
+    </section>
+
+    <section class="quote-section" style="flex-direction: row-reverse;">
+        <div class="quote-text">
+            <blockquote>“A normal gait is smooth, balanced, and efficient. It plays a crucial role in mobility and overall well-being. By analyzing walking patterns, AI can help differentiate between normal and abnormal gait, assisting in early detection of potential issues.”</blockquote>
+        </div>
+        <video src="{{ url_for('static', filename='Normal_gait.mp4') }}" controls loop autoplay muted playsinline style="width: 50%;"></video>
+    </section>
+
+    <div class="footer">&copy; 2025 Gait Anomaly Detection. All Rights Reserved.</div>
+
+
+
+
+
+    <script>
+        function displayFileName() {
+    var fileInput = document.getElementById('file-upload');
+    var fileNameDisplay = document.getElementById('file-name');
+    fileNameDisplay.textContent = fileInput.files.length > 0 ? "Selected file: " + fileInput.files[0].name : "";
+}
+
+function showLoading() {
+    var submitButton = document.getElementById('submit-btn');
+    var loadingMessage = document.getElementById('loading-message');
+
+    console.log("Form submitted. Disabling button...");
+
+    // Disable button
+    submitButton.disabled = true;
+    submitButton.style.background = "#53a5fc";
+    submitButton.style.cursor = "not-allowed";
+    submitButton.style.pointerEvents = "none"; // Prevents click events
+
+    // Show loading message
+    loadingMessage.style.display = 'block';
+}
+
+
+
+
+    </script>
+</body>
+</html>

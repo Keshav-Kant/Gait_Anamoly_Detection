@@ -1,0 +1,16 @@
+# tensorflow
+tensorflow-cpu
+keras-tuner
+mediapipe
+scikit-learn
+pandas
+joblib
+tqdm
+opencv-python
+flask
+gunicorn
+seaborn
+
+# venv/scripts/activate
+# pip install -r requirements.txt
+# python app.py
