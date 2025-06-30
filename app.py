@@ -61,12 +61,10 @@ def predict():
         os.remove(old_video)
     
     # Set new output video path
-    # output_video_path = "static/output.mp4"
+    output_video_path = "static/output.mp4"
     
     # Extract keypoints
-    # keypoints = extract_keypoints(video_path, output_video_path)
-    keypoints = extract_keypoints(video_path, output_video_path=None)
-
+    keypoints = extract_keypoints(video_path, output_video_path)
     if isinstance(keypoints, dict) and 'error' in keypoints:
         return render_template('index.html', error=keypoints['error'])
 
