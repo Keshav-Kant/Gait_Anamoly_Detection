@@ -1,17 +1,21 @@
 # tensorflow
 # tensorflow-cpu
-tensorflow==2.13.0
 
 keras-tuner
-mediapipe
+# mediapipe
 scikit-learn
 pandas
 joblib
 tqdm
-opencv-python
+# opencv-python
 flask
 gunicorn
 seaborn
+
+tensorflow==2.13.0
+mediapipe==0.10.7
+opencv-python-headless==4.9.0.80
+
 
 # venv/scripts/activate
 # pip install -r requirements.txt
