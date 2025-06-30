@@ -1,19 +1,32 @@
-# tensorflow
-tensorflow-cpu
+# # tensorflow
+# # tensorflow-cpu
 # tensorflow==2.13.0
+# keras-tuner
+# mediapipe
+# scikit-learn
+# pandas
+# joblib
+# tqdm
+# # opencv-python
+# opencv-python-headless==4.9.0.80
+# flask
+# gunicorn
+# seaborn
+
+
+# Core ML & Utility Libraries
+tensorflow==2.13.0
 keras-tuner
-mediapipe
 scikit-learn
 pandas
 joblib
 tqdm
-# opencv-python
-opencv-python-headless==4.9.0.80
-
-flask
-gunicorn
 seaborn
 
-# venv/scripts/activate
-# pip install -r requirements.txt
-# python app.py
+# MediaPipe + OpenCV (safe combo for cloud)
+mediapipe==0.10.7
+opencv-python-headless==4.9.0.80
+
+# Streamlit App
+streamlit
+
