@@ -1,5 +1,7 @@
 # tensorflow
-tensorflow-cpu
+# tensorflow-cpu
+tensorflow==2.13.0
+
 keras-tuner
 mediapipe
 scikit-learn
