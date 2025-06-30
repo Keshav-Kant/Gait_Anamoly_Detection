@@ -1,5 +1,5 @@
 # tensorflow
-# tensorflow-cpu
+tensorflow-cpu
 
 keras-tuner
 # mediapipe
@@ -12,7 +12,7 @@ flask
 gunicorn
 seaborn
 
-tensorflow==2.13.0
+# tensorflow==2.13.0
 mediapipe==0.10.7
 opencv-python-headless==4.9.0.80
 
