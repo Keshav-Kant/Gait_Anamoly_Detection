@@ -6,9 +6,7 @@ This project implements a **Gait Anomaly Detection** system using multiple deep 
 
 ## 🚀 Demo
 
-▶️ **Watch the demo video:** [Click to view](YOUR_VIDEO_LINK_HERE)
-
-![Demo Screenshot](static/demo_screenshot.png)
+▶️ **Watch the demo video:** [Click to view](https://drive.google.com/file/d/101SA9XwkSgedO7FKwNBHU2IhyiiM6beu/view?usp=drive_link)
 
 ---
 
