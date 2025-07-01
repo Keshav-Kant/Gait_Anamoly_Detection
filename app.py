@@ -15,9 +15,9 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 # Ensure model files exist before loading
 model_paths = {
     "Autoencoder_Classifier_CNN": "Models/Autoencoder_Classifier.h5",
-    "CNN_GRU": "Models/CNN_GRU.h5",
-    "CNN_LSTM": "Models/CNN_LSTM.h5",
-    "RNN_CNN": "Models/RNN.h5"
+    # "CNN_GRU": "Models/CNN_GRU.h5",
+    # "CNN_LSTM": "Models/CNN_LSTM.h5",
+    # "RNN_CNN": "Models/RNN.h5"
 }
 
 # Load models
