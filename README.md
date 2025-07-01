@@ -73,7 +73,7 @@ This project uses a **custom dataset**:
 
 ---
 
-🧭 Future Scope
+## 🧭 Future Scope
 With access to larger, more diverse, and medically annotated datasets, this system has strong potential for real-world clinical applications, such as:
 
 - 🏥 Physiotherapy and rehabilitation monitoring
@@ -88,7 +88,7 @@ With access to larger, more diverse, and medically annotated datasets, this syst
 
 ---
 
-📌 To Do
+## 📌 To Do
 - Add webcam real-time gait detection
 
 - Add mobile responsiveness to frontend
