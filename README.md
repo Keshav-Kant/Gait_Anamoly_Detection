@@ -1,64 +1,101 @@
-# Biomechanics-of-gait
-Topic : Biomechanics of gait with image processing for classification of normal and abnormal gait.</br>
-Knowledge : Image processing, Computer vision, Machine learning, Disease or symptom about abnormal gait.</br>
-Tools : Python, OpenCV, Mediapipe, Numpy.</br></br>
+# 🧠 Gait Anomaly Detection Using Deep Learning (Multi-Agent System)
 
-## About project
-This project aims to investigate the possibility of abnormal gait in order to identify any anomalies in the body and also intends to study image processing.</br>
-(-) Using Mediapipe for detect landmarks of human bodies in an image or video.</br>
-(-) Using OpenCV to read data from image or video.</br>
-(-) Using Numpy for calculate math equations to determine risk of gait.</br></br>
+This project implements a **Gait Anomaly Detection** system using multiple deep learning models in an ensemble architecture, deployed via a Flask web application. It takes in a human walking video, extracts keypoints, and detects anomalies in gait using trained models.
 
-<img src = "Other/(GIF)Limping gait.gif" />
-</br>
+---
 
-## Installation
-To use the Biomechanics of gait, follow these step :</br></br>
-<a href = "https://www.python.org/downloads/">Install python</a> <a>from version 3.9 onwards.</a>
-</br></br>
+## 🚀 Demo
 
-## Running
-To run the Biomechanics of gait, follow these step :</br></br>
-upload files gait videos that want to check in the folder Biomechanics-of-gait or in same the folder as BiomechanicsOfGait.py.
-</br></br>
+▶️ **Watch the demo video:** [Click to view](YOUR_VIDEO_LINK_HERE)
 
-open folder :
-```
-  cd Biomechanics-of-gait
-```
-2 choice with your videos you need to check</br>
-( - ) change your video file name you need to check to gait.mp4 in folder Dataset</br>
-( - ) change code in BiomechanicOfGait.py line 11 to your videos you need to check [File name].[File type] :
+![Demo Screenshot](static/demo_screenshot.png)
 
-```
-  cap = cv2.VideoCapture("./Dataset/[File name].[File type]")
-```
+---
 
-run :
-```
-  python3 BiomechanicsOfGait.py
-```
+## 🧐 What It Does
 
-output :</br>
-Conclude gait abnormal - risk : [none / neck pain / limping / hip hike / no arm swing]</br>
-</br></br>
+- Accepts a walking **video upload** through the web interface.
+- Extracts **33 body keypoints per frame** using a custom keypoint extractor.
+- Applies **4 deep learning models** (CNN, LSTM, GRU, Autoencoder hybrid) to analyze the motion.
+- Predicts the type of **gait anomaly**:
+  - Normal
+  - Limping
+  - Slouch
+  - No Arm Swing
+  - Circumduction
+- Uses a **multi-agent voting mechanism** to finalize the most likely anomaly class.
 
+---
 
-<h2>Scope</h2>
-<h3>First thought</h3>
-- Check some disease with abnormal gait</br>
-- Check some symptoms from abnormal gait</br>
-- Check risk for some symptoms from abnormal gait</br>
-<h3>Done</h3>
-- Risk for neck pain.</br>
-- Risk for limping gait.</br>
-- Risk for Hip hike.</br>
-- No arm swing.</br>
-<h3>Problem</h3>
-- Must be viewed from the side only.</br>
-- Did not use AI for training or prediction.</br>
-- Quite a bit of relevant information or research.</br>
-- Datasets related to various diseases are quite rare.</br>
-<h3>Continue in the future</h3>
-- Use AI for train model or predict disease.</br>
-- Applied with accessories for greater accuracy.</br>
+## 🧠 Models Used
+
+All models were trained and tested by the author on a custom dataset:
+
+| Model Name                 | Description                   |
+|---------------------------|-------------------------------|
+| Autoencoder_Classifier_CNN| Feature Compression + CNN     |
+| CNN_GRU                   | Convolution + GRU             |
+| CNN_LSTM                  | Convolution + LSTM            |
+| RNN_CNN                   | Recurrent + CNN Hybrid        |
+
+All models are saved in `.h5` format and loaded dynamically.
+
+---
+
+## 📂 Dataset
+
+This project uses a **custom dataset**:
+- Curated from **YouTube walking videos**
+- **Personal recorded gait videos**
+- Labeled into 5 categories: Normal, Limping, Slouch, No Arm Swing, Circumduction
+
+---
+
+## ⚙️ How It Works
+
+1. User uploads a walking video.
+2. The system extracts **keypoints** frame-by-frame using `extract_keypoints()`.
+3. The extracted data is **scaled and reshaped**.
+4. Each model in the ensemble makes a prediction.
+5. A **voting system** aggregates the results.
+6. The app renders:
+   - Final predicted gait anomaly
+   - Model-wise prediction counts
+   - Annotated output video
+
+---
+
+## 📦 Tech Stack
+
+- **Flask** (Python Web App)
+- **TensorFlow / Keras** (Model Loading)
+- **MediaPipe + OpenCV** (Video Processing & Keypoint Extraction)
+- **Joblib** (Scaler for preprocessing)
+- **HTML5 + Jinja2** (Frontend Rendering)
+
+---
+
+🧭 Future Scope
+With access to larger, more diverse, and medically annotated datasets, this system has strong potential for real-world clinical applications, such as:
+
+- 🏥 Physiotherapy and rehabilitation monitoring
+
+- 👨‍⚕️ Early diagnosis of neurological conditions (e.g., Parkinson’s, stroke-related gait issues)
+
+- 📉 Post-surgery gait recovery analysis
+
+- 🤖 Integration into wearables or mobile apps for home-based gait screening
+
+- 🔬 With better data and continued fine-tuning, this multi-model system could evolve into a reliable gait analysis tool for doctors, physiotherapists, and sports scientists.
+
+---
+
+📌 To Do
+- Add webcam real-time gait detection
+
+- Add mobile responsiveness to frontend
+
+- Publish dataset and training scripts
+
+- Dockerize for cloud deployment
+
